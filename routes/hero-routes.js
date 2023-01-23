@@ -17,8 +17,7 @@ router.get('/heroes', (req, res, next) => {
     .catch(next)
 })
 
-//SHOW /GET
-//request to get characters :id
+//SHOW - GET
 router.get('/heroes/:id', (req, res, next) => {
     Hero.findById(req.params.id)
     // .then(handle404)
@@ -28,8 +27,7 @@ router.get('/heroes/:id', (req, res, next) => {
     .catch(next)
 })
 
-//CREATE /POST
-// //request //response //next is middleware
+//CREATE - POST
 router.post('/heroes', (req, res, next) => {
     Hero.create(req.body.hero)
     .then(hero => {
@@ -38,14 +36,25 @@ router.post('/heroes', (req, res, next) => {
     .catch(next)
 })
 
-// router.delete('/heroes/:id', (req, res, next) => {
-//     Hero.findById(req.params.id)
-//         .then(handle404)
-//         .then(hero => {
-//             return hero.deleteOne()
-//         })
-//         .then(() => res.sendStatus(204))
-//         .catch(next)
-// })
+//UPDATE - PATCH
+router.patch('/heroes/:id', (req, res, next) => {
+    Hero.findById(req.params.id)
+    .then(hero => {
+        return hero.updateOne(req.body.hero)
+    })
+    .then(() => res.sendStatus(204))
+    .catch(next)
+})
+
+//DELETE
+router.delete('/heroes/:id', (req, res, next) => {
+    Hero.findById(req.params.id)
+        // .then(handle404)
+        .then(hero => {
+            return hero.deleteOne()
+        })
+        .then(() => res.sendStatus(204))
+        .catch(next)
+})
 
 module.exports = router
