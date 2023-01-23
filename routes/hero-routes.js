@@ -1,7 +1,7 @@
 const express = require('express')
 
-// const { handle404 } = require('../lib/custom-errors')
-
+const { handle404 } = require('../lib/custom-errors')
+//Hero is the ENTITY
 const Hero = require('../models/hero')
 const router = express.Router()
 
@@ -20,7 +20,8 @@ router.get('/heroes', (req, res, next) => {
 //SHOW - GET
 router.get('/heroes/:id', (req, res, next) => {
     Hero.findById(req.params.id)
-    // .then(handle404)
+    //Handle404 Insert Below findById
+    .then(handle404)
     .then(hero => {
         res.status(200).json({ hero: hero })
     })
@@ -49,12 +50,13 @@ router.patch('/heroes/:id', (req, res, next) => {
 //DELETE
 router.delete('/heroes/:id', (req, res, next) => {
     Hero.findById(req.params.id)
-        // .then(handle404)
-        .then(hero => {
-            return hero.deleteOne()
-        })
-        .then(() => res.sendStatus(204))
-        .catch(next)
+    //Handle404 Insert Below findById
+    .then(handle404)
+    .then(hero => {
+        return hero.deleteOne()
+    })
+    .then(() => res.sendStatus(204))
+    .catch(next)
 })
 
 module.exports = router
