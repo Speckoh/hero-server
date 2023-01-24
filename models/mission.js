@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const objectiveSchema = require('./objective')
 
 const missionSchema = new mongoose.Schema({
     name: {
